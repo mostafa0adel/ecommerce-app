@@ -1,0 +1,22 @@
+<div class="cart-item">
+  <img
+    class="cart-item__image"
+    [src]="item.product.images[0]"
+    [alt]="item.product.title"
+  />
+
+  <div class="cart-item__details">
+    <p class="cart-item__title">{{ item.product.title }}</p>
+    <p class="cart-item__price">{{ item.product.price | currency }}</p>
+
+    <div class="cart-item__quantity">
+      <button type="button" (click)="decrease()" aria-label="Decrease quantity">−</button>
+      <span>{{ item.quantity }}</span>
+      <button type="button" (click)="increase()" aria-label="Increase quantity">+</button>
+    </div>
+  </div>
+
+  <button class="cart-item__remove" type="button" (click)="onRemove()" aria-label="Remove item">
+    ✕
+  </button>
+</div>

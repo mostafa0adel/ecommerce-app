@@ -1,0 +1,31 @@
+<div class="cart-overlay"></div>
+
+<aside class="cart-sidebar">
+  <header class="cart-sidebar__header">
+    <h2>Your cart</h2>
+  </header>
+
+  <div class="cart-sidebar__body">
+    @if (getItems().length) {
+      @for (item of getItems(); track item.product.id) {
+        <app-cart-item
+          [item]="item"
+          (quantityChange)="onQuantityChange(item.product.id, $event)"
+          (remove)="onRemove(item.product.id)"
+        />
+      }
+    } @else {
+      <p class="cart-sidebar__empty">Your cart is empty.</p>
+    }
+  </div>
+
+  <footer class="cart-sidebar__footer">
+    <div class="cart-sidebar__total">
+      <span>Total</span>
+      <strong>{{ getTotal() | currency }}</strong>
+    </div>
+    <button class="cart-sidebar__checkout" type="button" [disabled]="!getItems().length">
+      Checkout
+    </button>
+  </footer>
+</aside>

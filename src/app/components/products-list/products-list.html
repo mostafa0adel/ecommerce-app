@@ -1,0 +1,12 @@
+<section class="products">
+  <h2 class="products__heading">Our products</h2>
+
+  <div class="products__grid">
+    @for (product of products; track product.id) {
+      <app-product-card
+        [product]="product"
+        (addToCart)="onAddToCart($event)"
+      />
+    }
+  </div>
+</section>
