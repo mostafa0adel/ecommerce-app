@@ -4,12 +4,15 @@
   </div>
 
   <div class="product-card__body">
-    <span class="product-card__category">{{ product().Category }}</span>
+    <span class="product-card__category">{{ product().category }}</span>
     <h3 class="product-card__title">{{ product().name }}</h3>
     <p class="product-card__price">{{ product().price | currency }}</p>
   </div>
 
-  <button class="product-card__btn" type="button" (click)="onAddToCart()">
-    Add to cart
+  <div class="product-actions">
+      <a class="view-btn" [routerLink]="['/products', product().id]">View Details</a>
+  <button class="add-btn" type="button" (click)="onAddToCart()">
+    Add to Cart
   </button>
+    </div>
 </article>

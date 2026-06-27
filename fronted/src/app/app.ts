@@ -1,14 +1,30 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 import { CartSidebar } from './components/cart-sidebar/cart-sidebar';
-import { ProductsList } from './components/products-list/products-list';
-
 @Component({
   selector: 'app-root',
-  imports: [CartSidebar, ProductsList],
+  standalone: true,
+  imports: [CommonModule, RouterModule, CartSidebar],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = "Angular 17 Signal Example";
+  title = 'day2-app';
+  loading = signal(false);
 
+  constructor() {
+    inject(Router).events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.loading.set(true);
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
+        this.loading.set(false);
+      }
+    });
+  }
 }
+

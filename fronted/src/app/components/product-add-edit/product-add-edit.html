@@ -1,0 +1,59 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Edit Product' : 'Create New Product' }}</h2>
+  <p class="subtitle">{{ isEditMode ? 'Update the details for this item' : 'Fill in the information to add a product' }}</p>
+
+  <form (ngSubmit)="onSubmit()" #prodForm="ngForm" class="product-form">
+    <div class="form-group">
+      <label for="name">Product Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="productForm.name"
+        required
+        placeholder="e.g. Premium Leather Jacket"
+        #nameInput="ngModel"
+        [ngClass]="{ 'input-error': nameInput.invalid && nameInput.touched }"
+      />
+      @if (nameInput.invalid && nameInput.touched) {
+        <small class="error-text">Product name is required.</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price (USD)</label>
+      <input
+        type="number"
+        id="price"
+        name="price"
+        [(ngModel)]="productForm.price"
+        required
+        min="0.01"
+        placeholder="99.99"
+        #priceInput="ngModel"
+        [ngClass]="{ 'input-error': priceInput.invalid && priceInput.touched }"
+      />
+      @if (priceInput.invalid && priceInput.touched) {
+        <small class="error-text">Please enter a valid price (minimum 0.01).</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="productForm.description"
+        rows="4"
+        placeholder="Explain what makes this product special..."
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
+      <button type="submit" [disabled]="prodForm.invalid" class="btn-submit">
+        {{ isEditMode ? 'Save Product' : 'Add Product' }}
+      </button>
+    </div>
+  </form>
+</div>

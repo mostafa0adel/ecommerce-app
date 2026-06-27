@@ -56,20 +56,45 @@
     color: #111;
   }
 
-  &__btn {
-    margin: 0 1rem 1rem;
-    padding: 0.55rem 1rem;
-    border: none;
-    border-radius: 8px;
-    background: #1a1a1a;
-    color: #fff;
-    font-size: 0.85rem;
+  
+.product-actions {
+  margin-top: auto;
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+
+  .view-btn, .add-btn {
+    flex: 1;
+    padding: 0.625rem 0.25rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+  }
 
+  .view-btn {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
     &:hover {
-      background: #333;
+      background-color: #e2e8f0;
+      color: #0f172a;
     }
   }
+
+  .add-btn {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: none;
+    &:hover {
+      background-color: #333;
+    }
+  }
+
+}
 }

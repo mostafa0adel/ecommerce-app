@@ -17,7 +17,7 @@ export class ProductsList implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.productService.loadProducts();
+    this.productService.getProducts();
   }
 
   onAddToCart(product: Product): void {
