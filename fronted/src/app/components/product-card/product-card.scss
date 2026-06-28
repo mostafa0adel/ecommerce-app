@@ -63,7 +63,7 @@
   gap: 0.5rem;
   width: 100%;
 
-  .view-btn, .add-btn {
+  .view-btn, .add-btn, .delete-btn {
     flex: 1;
     padding: 0.625rem 0.25rem;
     border-radius: 0.75rem;
@@ -93,6 +93,15 @@
     border: none;
     &:hover {
       background-color: #333;
+    }
+  }
+
+  .delete-btn {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+    &:hover {
+      background-color: #fecaca;
     }
   }
 

@@ -2,21 +2,25 @@
   <h2>{{ isEditMode ? 'Edit Product' : 'Create New Product' }}</h2>
   <p class="subtitle">{{ isEditMode ? 'Update the details for this item' : 'Fill in the information to add a product' }}</p>
 
-  <form (ngSubmit)="onSubmit()" #prodForm="ngForm" class="product-form">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
     <div class="form-group">
       <label for="name">Product Name</label>
       <input
         type="text"
         id="name"
-        name="name"
-        [(ngModel)]="productForm.name"
-        required
+        formControlName="name"
         placeholder="e.g. Premium Leather Jacket"
-        #nameInput="ngModel"
-        [ngClass]="{ 'input-error': nameInput.invalid && nameInput.touched }"
+        [ngClass]="{ 'input-error': productForm.get('name')?.invalid && productForm.get('name')?.touched }"
       />
-      @if (nameInput.invalid && nameInput.touched) {
-        <small class="error-text">Product name is required.</small>
+      @if (productForm.get('name')?.invalid && productForm.get('name')?.touched) {
+        <small class="error-text">
+          @if (productForm.get('name')?.errors?.['required']) {
+            Product name is required.
+          }
+          @if (productForm.get('name')?.errors?.['minlength']) {
+            Name must be at least 3 characters.
+          }
+        </small>
       }
     </div>
 
@@ -25,15 +29,11 @@
       <input
         type="number"
         id="price"
-        name="price"
-        [(ngModel)]="productForm.price"
-        required
-        min="0.01"
+        formControlName="price"
         placeholder="99.99"
-        #priceInput="ngModel"
-        [ngClass]="{ 'input-error': priceInput.invalid && priceInput.touched }"
+        [ngClass]="{ 'input-error': productForm.get('price')?.invalid && productForm.get('price')?.touched }"
       />
-      @if (priceInput.invalid && priceInput.touched) {
+      @if (productForm.get('price')?.invalid && productForm.get('price')?.touched) {
         <small class="error-text">Please enter a valid price (minimum 0.01).</small>
       }
     </div>
@@ -42,16 +42,39 @@
       <label for="description">Description</label>
       <textarea
         id="description"
-        name="description"
-        [(ngModel)]="productForm.description"
+        formControlName="description"
         rows="4"
         placeholder="Explain what makes this product special..."
+        [ngClass]="{ 'input-error': productForm.get('description')?.invalid && productForm.get('description')?.touched }"
       ></textarea>
+      @if (productForm.get('description')?.invalid && productForm.get('description')?.touched) {
+        <small class="error-text">Description is required.</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input
+        type="text"
+        id="category"
+        formControlName="category"
+        placeholder="e.g. Clothing"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image URL</label>
+      <input
+        type="text"
+        id="image"
+        formControlName="image"
+        placeholder="https://example.com/image.jpg"
+      />
     </div>
 
     <div class="form-actions">
       <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
-      <button type="submit" [disabled]="prodForm.invalid" class="btn-submit">
+      <button type="submit" [disabled]="productForm.invalid" class="btn-submit">
         {{ isEditMode ? 'Save Product' : 'Add Product' }}
       </button>
     </div>

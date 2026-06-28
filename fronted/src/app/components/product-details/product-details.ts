@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Product } from '../../models/product';
+import { ProductService } from '../../services/product';
 import { CartService } from '../../services/cart';
 import { ShortPipe } from '../../pipes/text.pipe';
 import { HoverGlowDirective } from '../../directives/hover-glow.directive';
@@ -17,6 +18,7 @@ import { UnlessDirective } from '../../directives/unless.directive';
 export class ProductDetails implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private productService = inject(ProductService);
   private cartService = inject(CartService);
 
   product: Product | null = null;
@@ -29,6 +31,13 @@ export class ProductDetails implements OnInit {
   addToCart(): void {
     if (this.product) {
       this.cartService.addToCart(this.product);
+    }
+  }
+
+  deleteProduct(): void {
+    if (this.product && confirm(`Are you sure you want to delete "${this.product.name}"?`)) {
+      this.productService.deleteProduct(this.product.id);
+      this.router.navigate(['/products']);
     }
   }
 

@@ -23,4 +23,8 @@ export class ProductsList implements OnInit {
   onAddToCart(product: Product): void {
     this.cartService.addToCart(product);
   }
+
+  onDeleteProduct(id: number): void {
+    this.productService.deleteProduct(id);
+  }
 }

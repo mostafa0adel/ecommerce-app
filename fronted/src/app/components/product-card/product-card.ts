@@ -14,8 +14,16 @@ export class ProductCard {
   product = input.required<Product>();
 
   addToCart = output<Product>();
+  delete = output<number>();
 
   onAddToCart(): void {
     this.addToCart.emit(this.product());
+  }
+
+  onDelete(event: Event): void {
+    event.stopPropagation();
+    if (confirm(`Are you sure you want to delete "${this.product().name}"?`)) {
+      this.delete.emit(this.product().id);
+    }
   }
 }

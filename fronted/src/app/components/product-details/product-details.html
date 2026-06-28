@@ -20,6 +20,7 @@
       <div class="actions">
         <button [disabled]="product.price <= 0" class="buy-btn" (click)="addToCart()">Add to Cart</button>
         <button class="edit-btn" [routerLink]="['/product-form', product.id]">Edit Details</button>
+        <button class="delete-btn" (click)="deleteProduct()">Delete Product</button>
       </div>
     </div>
   }

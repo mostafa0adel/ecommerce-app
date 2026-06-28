@@ -123,6 +123,16 @@
           background: #e2e8f0;
         }
       }
+
+      .delete-btn {
+        background: #fee2e2;
+        color: #ef4444;
+        border: 1px solid #fecaca;
+
+        &:hover {
+          background: #fecaca;
+        }
+      }
     }
   }
 

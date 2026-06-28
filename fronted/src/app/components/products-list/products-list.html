@@ -6,6 +6,7 @@
       <app-product-card
         [product]="product"
         (addToCart)="onAddToCart($event)"
+        (delete)="onDeleteProduct($event)"
       />
     }
   </div>
